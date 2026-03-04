@@ -1,6 +1,6 @@
 pipeline {
 
-    agent none
+    agent any
 
     options {
         timestamps()
@@ -42,9 +42,7 @@ pipeline {
 
     post {
         always {
-            node {
-                cleanWs()
-            }
+            cleanWs()
         }
     }
 }
