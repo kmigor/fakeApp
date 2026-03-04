@@ -29,7 +29,12 @@ pipeline {
         }
 
         stage('Trigger AQA') {
-            when { changeRequest() }
+            when {
+                anyOf {
+                    branch 'master'
+                    changeRequest()
+                }
+            }
             steps {
                 build job: 'aqa-demo-mb/master',
                       parameters: [
