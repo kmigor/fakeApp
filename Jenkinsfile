@@ -31,7 +31,7 @@ pipeline {
         stage('Trigger AQA') {
             when { changeRequest() }
             steps {
-                build job: 'aqa-demo-mb/main',
+                build job: 'aqa-demo-mb/master',
                       parameters: [
                           booleanParam(name: 'RUN_SMOKE_FROM_APP', value: true)
                       ],
