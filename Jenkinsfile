@@ -1,6 +1,6 @@
 pipeline {
 
-    agent any
+    agent none
 
     options {
         timestamps()
@@ -9,14 +9,16 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
+        stage('Build & Unit') {
+            agent {
+                docker {
+                    image 'maven:3.9-eclipse-temurin-17'
+                    args '-v /var/jenkins_home/.m2:/root/.m2'
+                    reuseNode true
+                }
+            }
             steps {
                 checkout scm
-            }
-        }
-
-        stage('Build & Unit') {
-            steps {
                 sh 'mvn -B clean test'
             }
             post {
